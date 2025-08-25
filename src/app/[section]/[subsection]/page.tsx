@@ -2,7 +2,7 @@ import { sections } from '@/data/mockData';
 import { Card } from '@/components/Common/Card';
 import { notFound } from 'next/navigation';
 
-export default async function DynamicSubsectionPage({ params }: { params: { section: string; subsection: string } }) {
+export default async function DynamicSubsectionPage({ params }: { params: Promise<{ section: string; subsection: string }> }) {
   const { section: sectionId, subsection: subsectionId } = await params;
   const section = sections.find(sec => sec.id === sectionId);
   const subsection = section?.subsections?.find(sub => sub.id === subsectionId);
