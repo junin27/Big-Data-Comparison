@@ -1,91 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 import { Card } from '@/components/Common/Card';
 import { Database } from 'lucide-react';
 
 // Dados extraídos da tabela fornecida - estruturados como cenários de uso
-const mlAiRecommendations = [
-  {
-    scenario: 'Treinamento de Modelos',
-    platforms: [
-      {
-        name: 'Azure Machine Learning',
-        priority: 1,
-        percentage: 50,
-        justification: 'Custo estimado: $0.90 por hora para NC6 GPU. Melhor custo-benefício para treinamento com ferramentas visuais e integração com o ecossistema Microsoft.',
-        color: '#dc2626'
-      },
-      {
-        name: 'AWS SageMaker',
-        priority: 2,
-        percentage: 30,
-        justification: 'Custo estimado: $3.06 por hora para p3.2xlarge GPU. Ampla variedade de instâncias e ecossistema maduro para projetos complexos.',
-        color: '#fbbf24'
-      },
-      {
-        name: 'GCP Vertex AI',
-        priority: 3,
-        percentage: 20,
-        justification: 'Custo estimado: $4.82 por hora para N1 Standard-8 + Tesla T4 GPU. Usabilidade superior com AutoML e forte integração com BigQuery.',
-        color: '#4285f4'
-      }
-    ]
-  },
-  {
-    scenario: 'Inference de Modelos',
-    platforms: [
-      {
-        name: 'AWS SageMaker',
-        priority: 1,
-        percentage: 40,
-        justification: 'Custo estimado: $0.1345 por hora para ml.m5.large. Melhor custo para inference com ampla variedade de instâncias e ecossistema maduro.',
-        color: '#fbbf24'
-      },
-      {
-        name: 'Azure Machine Learning',
-        priority: 2,
-        percentage: 35,
-        justification: 'Custo estimado: $0.145 por hora para Standard_DS3_v2. Ferramentas visuais e integração com o ecossistema Microsoft.',
-        color: '#dc2626'
-      },
-      {
-        name: 'GCP Vertex AI',
-        priority: 3,
-        percentage: 25,
-        justification: 'Custo estimado: $0.1851 por hora para F2-standard-4. Usabilidade, AutoML e forte integração com BigQuery.',
-        color: '#4285f4'
-      }
-    ]
-  },
-  {
-    scenario: 'Projetos AutoML e Facilidade de Uso',
-    platforms: [
-      {
-        name: 'GCP Vertex AI',
-        priority: 1,
-        percentage: 50,
-        justification: 'Destaque para a usabilidade, recursos de AutoML e a integração com BigQuery, ideal para cientistas de dados com foco em simplicidade.',
-        color: '#4285f4'
-      },
-      {
-        name: 'Azure Machine Learning',
-        priority: 2,
-        percentage: 30,
-        justification: 'Ferramentas visuais robustas e integração com o ecossistema Microsoft, adequadas para empresas que operam com Azure.',
-        color: '#dc2626'
-      },
-      {
-        name: 'AWS SageMaker',
-        priority: 3,
-        percentage: 20,
-        justification: 'Oferece o portfólio mais vasto e granular para o ciclo de vida completo do ML, sendo uma excelente opção para engenheiros experientes.',
-        color: '#fbbf24'
-      }
-    ]
-  }
-];
+// mlAiRecommendations array removed as it was not being used
 
 // Dados para gráfico de barras - pontuação das plataformas por cenário (0-100)
 const platformDistribution = [
@@ -136,7 +57,7 @@ const radarData = [
 
 export default function MLAIComparisonPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [visiblePlatforms, setVisiblePlatforms] = useState<string[]>(['GCP Vertex AI', 'Azure ML', 'AWS SageMaker']);
+  // const [visiblePlatforms, setVisiblePlatforms] = useState<string[]>(['GCP Vertex AI', 'Azure ML', 'AWS SageMaker']);
   const [visiblePlatformsBar, setVisiblePlatformsBar] = useState<Record<string, boolean>>({
     Azure: true,
     GCP: true,
@@ -164,9 +85,9 @@ export default function MLAIComparisonPage() {
 
   const mlAiCategories = ['Treinamento', 'Inference'];
   
-  const filteredData = selectedCategory === 'all' 
-    ? mlAiCategories 
-    : mlAiCategories.filter(cat => cat.toLowerCase().includes(selectedCategory.toLowerCase()));
+  // const filteredData = selectedCategory === 'all' 
+  //   ? mlAiCategories 
+  //   : mlAiCategories.filter(cat => cat.toLowerCase().includes(selectedCategory.toLowerCase()));
 
   return (
     <div className="space-y-8">
@@ -472,7 +393,7 @@ export default function MLAIComparisonPage() {
                         return (
                           <div className="bg-white p-3 border border-gray-300 rounded shadow-lg">
                             <p className="font-semibold mb-2">{`Cenário: ${label}`}</p>
-                            {sortedData.map((entry, index) => (
+                            {sortedData.map((entry) => (
                               <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
                                 {`${entry.name}: ${entry.value} pontos`}
                               </p>

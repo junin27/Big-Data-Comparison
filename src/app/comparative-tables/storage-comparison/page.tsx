@@ -192,9 +192,9 @@ export default function StorageComparisonPage() {
     }));
   };
 
-  const filteredComparison = selectedCategory === 'all' 
-    ? storageRecommendations 
-    : storageRecommendations.filter(comp => comp.category.toLowerCase().includes(selectedCategory.toLowerCase()));
+  // const filteredComparison = selectedCategory === 'all' 
+  //   ? storageRecommendations 
+  //   : storageRecommendations.filter(comp => comp.category.toLowerCase().includes(selectedCategory.toLowerCase()));
 
   return (
     <div className="space-y-8">

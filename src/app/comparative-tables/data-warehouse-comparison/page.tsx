@@ -440,15 +440,15 @@ export default function DataWarehouseComparisonPage() {
                   <XAxis dataKey="provider" />
                   <YAxis />
                   <Tooltip 
-                    content={({ active, payload, label }: any) => {
+                    content={({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; value: number; color: string }>; label?: string | number }) => {
                       if (active && payload && payload.length) {
-                        const visiblePayload = payload.filter((entry: any) => visibleCategoriesBar[entry.dataKey as CategoryName]);
-                        const sortedPayload = [...visiblePayload].sort((a: any, b: any) => (b.value as number) - (a.value as number));
+                        const visiblePayload = payload.filter((entry) => visibleCategoriesBar[entry.dataKey as CategoryName]);
+                        const sortedPayload = [...visiblePayload].sort((a, b) => (b.value as number) - (a.value as number));
                         
                         return (
                           <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
                             <p className="font-semibold text-gray-800 mb-2">{label}</p>
-                            {sortedPayload.map((entry: any) => (
+                            {sortedPayload.map((entry) => (
                               <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
                                 {`${entry.dataKey}: ${entry.value} pontos`}
                               </p>
@@ -524,16 +524,16 @@ export default function DataWarehouseComparisonPage() {
                   <PolarAngleAxis dataKey="provider" tick={{ fontSize: 12 }} />
                   <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 10 }} />
                   <Tooltip 
-                    content={({ active, payload, label }: any) => {
+                    content={({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; value: number; color: string }>; label?: string | number }) => {
                       if (active && payload && payload.length) {
                         // Filtrar apenas categorias visíveis e ordenar por pontuação decrescente
-                        const visiblePayload = payload.filter((entry: any) => visibleCategoriesRadar[entry.dataKey as CategoryName]);
-                        const sortedPayload = [...visiblePayload].sort((a: any, b: any) => (b.value as number) - (a.value as number));
+                        const visiblePayload = payload.filter((entry) => visibleCategoriesRadar[entry.dataKey as CategoryName]);
+                        const sortedPayload = [...visiblePayload].sort((a, b) => (b.value as number) - (a.value as number));
                         
                         return (
                           <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
                             <p className="font-semibold text-gray-800 mb-2">{label}</p>
-                            {sortedPayload.map((entry: any, index: number) => {
+                            {sortedPayload.map((entry, index: number) => {
                               return (
                                 <p key={index} className="text-sm" style={{ color: entry.color }}>
                                   <span className="font-medium">{entry.dataKey}:</span> {entry.value} pontos

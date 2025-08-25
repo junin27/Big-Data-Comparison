@@ -1,7 +1,7 @@
 'use client';
 
 import { Card } from '@/components/Common/Card';
-import { CheckCircle, Target, TrendingUp, Award } from 'lucide-react';
+import { Target, TrendingUp, Award } from 'lucide-react';
 
 export default function FinalRecommendationsPage() {
   return (
@@ -22,7 +22,7 @@ export default function FinalRecommendationsPage() {
           <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
             <p className="text-lg text-gray-800 leading-relaxed">
               A análise comparativa exaustiva das plataformas de Big Data da GCP, Azure e AWS demonstra que 
-              <strong className="text-blue-700"> não existe uma "melhor" plataforma universal</strong>. 
+              <strong className="text-blue-700"> não existe uma &quot;melhor&quot; plataforma universal</strong>. 
               A decisão ideal é uma escolha estratégica que deve ser orientada por uma 
               <strong className="text-blue-700"> avaliação holística e multifacetada</strong>.
             </p>
