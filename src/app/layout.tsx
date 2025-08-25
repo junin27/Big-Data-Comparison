@@ -6,9 +6,9 @@ import AppShell from '@/components/AppShell';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Relatório Comparativo: Plataformas Big Data em Nuvem",
+  title: "Relatório Comparativo: Plataformas 💾 Big Data em Nuvem",
   description:
-    "Análise abrangente de Google Cloud Platform, Microsoft Azure e Amazon Web Services para tomada de decisão estratégica em projetos de Big Data.",
+    "Análise abrangente de Google Cloud Platform, Microsoft Azure e Amazon Web Services para tomada de decisão estratégica em projetos de 💾 Big Data.",
   keywords:
     "big data, cloud computing, GCP, Azure, AWS, comparativo, analytics",
 };

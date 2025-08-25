@@ -10,7 +10,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-8">
         <h1 className="text-3xl font-bold mb-4">
-          Relatório Comparativo: Plataformas Big Data em Nuvem
+          Relatório Comparativo: Plataformas 💾 Big Data em Nuvem
         </h1>
         <p className="text-xl text-blue-100 mb-6">
           Análise abrangente de GCP, Azure e AWS para tomada de decisão estratégica

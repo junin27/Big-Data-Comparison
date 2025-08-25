@@ -173,7 +173,7 @@ export default function PlatformRecommendationsPage() {
         </h1>
         <p className="text-lg text-gray-600 max-w-4xl mx-auto">
           Análise comparativa baseada em dados estatísticos para orientar a escolha da plataforma ideal 
-          conforme diferentes cenários de uso em Big Data e Analytics.
+          conforme diferentes cenários de uso em 💾 Big Data e Analytics.
         </p>
       </div>
 
