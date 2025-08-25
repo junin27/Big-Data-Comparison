@@ -114,7 +114,7 @@ export const sections: Section[] = [
 </blockquote>
 
 <div style="margin-bottom: 20px;">
-  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Azure Synapse Analytics</strong> - Plataforma unificada de Big Data<br>
+  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Azure Synapse Analytics</strong> - Plataforma unificada de 💾 Big Data<br>
   • <strong>Integra</strong>: Data warehousing, Spark, BI e integração de dados<br>
   • <strong>Modelos</strong>: <strong>Serverless</strong> (pague por TB processado) e <strong>Dedicated</strong> (pague por DWU)<br>
   • <strong>Flexibilidade</strong>: Escolha entre custo sob demanda ou desempenho dedicado
@@ -156,7 +156,7 @@ export const sections: Section[] = [
       {
         id: 'aws-market-leadership',
         title: 'AWS: A Liderança de Mercado e a Vasta Oferta de Serviços',
-        content: `A <strong>AWS</strong>, como líder de mercado e provedora de nuvem mais madura, oferece um <strong>portfólio de serviços de Big Data vasto e modular</strong>. Sua filosofia é fornecer aos clientes os <strong>blocos de construção mais granulares</strong> para que possam arquitetar a solução ideal de acordo com suas necessidades específicas.
+        content: `A <strong>AWS</strong>, como líder de mercado e provedora de nuvem mais madura, oferece um <strong>portfólio de serviços de 💾 Big Data vasto e modular</strong>. Sua filosofia é fornecer aos clientes os <strong>blocos de construção mais granulares</strong> para que possam arquitetar a solução ideal de acordo com suas necessidades específicas.
 
 <hr style="margin: 20px 0; border: none; border-top: 2px solid #e5e7eb;">
 
@@ -290,7 +290,7 @@ export const sections: Section[] = [
 </div>
 
 <div style="margin-bottom: 20px;">
-  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Vantagens para Big Data</strong><br>
+  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Vantagens para 💾 Big Data</strong><br>
   • <strong>Namespace Hierárquico</strong>: Otimiza acesso e gerenciamento em grande escala<br>
   • <strong>Integração Nativa</strong>: Com ferramentas de analytics do Azure<br>
   • <strong>Performance</strong>: Acesso eficiente para workloads analíticos
@@ -407,8 +407,8 @@ export const sections: Section[] = [
 </div>
 
 <div style="margin-bottom: 20px;">
-  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Amazon EMR - Big Data Gerenciado</strong><br>
-  • <strong>Hadoop e Spark</strong>: Plataforma completa para processamento de Big Data<br>
+  <strong style="font-style: normal; font-size: 18px; color: #458af5;">Amazon EMR - 💾 Big Data Gerenciado</strong><br>
+  • <strong>Hadoop e Spark</strong>: Plataforma completa para processamento de 💾 Big Data<br>
   • <strong>Modelo de Precificação</strong>: Adicional sobre custos das instâncias EC2<br>
   • <strong>Flexibilidade vs Simplicidade</strong>: Controle total de infraestrutura com curva de aprendizado mais acentuada<br>
   • <strong>Ideal para</strong>: Equipes experientes que precisam de controle de custos e flexibilidade inigualáveis
@@ -779,7 +779,7 @@ export const sections: Section[] = [
     </svg>
     <h4 style="color: #dc3545; margin: 0; font-size: 18px; font-weight: bold;">Operações, Mão de Obra e Treinamento</h4>
   </div>
-  <p style="color: #721c24; margin: 0;">O TCO de uma solução de Big Data não é apenas a fatura da nuvem; ele inclui custos de migração, licenciamento de software, treinamento da equipe e despesas de suporte e manutenção. A complexidade de gerenciar a vasta oferta de serviços da AWS, por exemplo, pode resultar em um TCO mais alto devido à necessidade de uma equipe técnica mais experiente, apesar de ter preços de hardware mais baixos.</p>
+  <p style="color: #721c24; margin: 0;">O TCO de uma solução de 💾 Big Data não é apenas a fatura da nuvem; ele inclui custos de migração, licenciamento de software, treinamento da equipe e despesas de suporte e manutenção. A complexidade de gerenciar a vasta oferta de serviços da AWS, por exemplo, pode resultar em um TCO mais alto devido à necessidade de uma equipe técnica mais experiente, apesar de ter preços de hardware mais baixos.</p>
 </div>
 
 </div>`

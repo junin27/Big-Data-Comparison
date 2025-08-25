@@ -105,50 +105,32 @@ const storageRecommendations = [
   }
 ];
 
-// Dados para gráfico de barras - comparação de custos
-const costComparison = [
-  { category: 'Standard', GCP: 0.02, Azure: 0.0184, AWS: 0.023 },
-  { category: 'Infrequent', GCP: 0.01, Azure: 0.01, AWS: 0.0125 },
-  { category: 'Archive', GCP: 0.0012, Azure: 0.002, AWS: 0.00099 }
+// Dados para gráfico de barras - comparação por categorias de armazenamento
+const categoryComparison = [
+  { provider: 'GCP', 'Armazenamento Padrão': 0.02, 'Acesso Infrequente': 0.01, 'Arquivo': 0.0012 },
+  { provider: 'Azure', 'Armazenamento Padrão': 0.0184, 'Acesso Infrequente': 0.01, 'Arquivo': 0.002 },
+  { provider: 'AWS', 'Armazenamento Padrão': 0.023, 'Acesso Infrequente': 0.0125, 'Arquivo': 0.00099 }
 ];
 
-// Dados para gráfico radar - características dos serviços
-const radarData = [
+// Dados para gráfico radar - comparação por categorias de armazenamento
+const radarCategoryData = [
   {
-    characteristic: 'Custo-Benefício',
-    GCP: 85,
-    Azure: 90,
-    AWS: 80
+    provider: 'GCP',
+    'Armazenamento Padrão': 85,
+    'Acesso Infrequente': 90,
+    'Arquivo': 75
   },
   {
-    characteristic: 'Performance',
-    GCP: 90,
-    Azure: 85,
-    AWS: 88
+    provider: 'Azure', 
+    'Armazenamento Padrão': 90,
+    'Acesso Infrequente': 85,
+    'Arquivo': 70
   },
   {
-    characteristic: 'Facilidade de Uso',
-    GCP: 88,
-    Azure: 85,
-    AWS: 82
-  },
-  {
-    characteristic: 'Integração',
-    GCP: 85,
-    Azure: 95,
-    AWS: 90
-  },
-  {
-    characteristic: 'Escalabilidade',
-    GCP: 95,
-    Azure: 90,
-    AWS: 92
-  },
-  {
-    characteristic: 'Durabilidade',
-    GCP: 99,
-    Azure: 99,
-    AWS: 99
+    provider: 'AWS',
+    'Armazenamento Padrão': 80,
+    'Acesso Infrequente': 82,
+    'Arquivo': 95
   }
 ];
 
@@ -185,28 +167,28 @@ const serviceAdvantages = {
 
 export default function StorageComparisonPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [visibleServicesBar, setVisibleServicesBar] = useState<Record<string, boolean>>({
-    GCP: true,
-    Azure: true,
-    AWS: true
+  const [visibleCategoriesBar, setVisibleCategoriesBar] = useState<Record<string, boolean>>({
+    'Armazenamento Padrão': true,
+    'Acesso Infrequente': true,
+    'Arquivo': true
   });
-  const [visibleServicesRadar, setVisibleServicesRadar] = useState<Record<string, boolean>>({
-    GCP: true,
-    Azure: true,
-    AWS: true
+  const [visibleCategoriesRadar, setVisibleCategoriesRadar] = useState<Record<string, boolean>>({
+    'Armazenamento Padrão': true,
+    'Acesso Infrequente': true,
+    'Arquivo': true
   });
 
-  const toggleServiceBar = (service: string) => {
-    setVisibleServicesBar(prev => ({
+  const toggleCategoryBar = (category: string) => {
+    setVisibleCategoriesBar(prev => ({
       ...prev,
-      [service]: !prev[service]
+      [category]: !prev[category]
     }));
   };
 
-  const toggleServiceRadar = (service: string) => {
-    setVisibleServicesRadar(prev => ({
+  const toggleCategoryRadar = (category: string) => {
+    setVisibleCategoriesRadar(prev => ({
       ...prev,
-      [service]: !prev[service]
+      [category]: !prev[category]
     }));
   };
 
@@ -222,8 +204,8 @@ export default function StorageComparisonPage() {
           Comparação de Serviços de Storage em Nuvem
         </h1>
         <p className="text-lg text-gray-600 max-w-4xl mx-auto">
-          Análise detalhada dos custos e características dos principais serviços de armazenamento 
-          em nuvem: GCP Cloud Storage, Azure Data Lake Storage e AWS S3.
+          Análise comparativa de soluções de armazenamento em nuvem para diferentes cenários de uso em 💾 Big Data: 
+          GCP Cloud Storage, Azure Data Lake Storage e AWS S3.
         </p>
       </div>
 
@@ -416,23 +398,23 @@ export default function StorageComparisonPage() {
           <div className="p-6">
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={costComparison} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                <BarChart data={categoryComparison} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="category" />
+                  <XAxis dataKey="provider" />
                   <YAxis />
                   <Tooltip 
                     formatter={(value) => [`$${value}`, 'Custo por GB/mês']}
                     content={({ active, payload, label }) => {
                       if (active && payload && payload.length) {
-                        const visiblePayload = payload.filter(entry => visibleServicesBar[entry.dataKey]);
-                        const sortedPayload = [...visiblePayload].sort((a, b) => a.value - b.value);
+                        const visiblePayload = payload.filter(entry => visibleCategoriesBar[entry.dataKey as string]);
+                        const sortedPayload = [...visiblePayload].sort((a, b) => (a.value as number) - (b.value as number));
                         
                         return (
                           <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
                             <p className="font-semibold text-gray-800 mb-2">{label}</p>
                             {sortedPayload.map((entry) => (
-                              <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
-                                {`${entry.name}: $${entry.value} por GB/mês`}
+                              <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
+                                {`${entry.dataKey}: $${entry.value} por GB/mês`}
                               </p>
                             ))}
                           </div>
@@ -441,44 +423,44 @@ export default function StorageComparisonPage() {
                       return null;
                     }}
                   />
-                  {visibleServicesBar.Azure && <Bar dataKey="Azure" fill="#dc2626" name="Azure Data Lake" />}
-                  {visibleServicesBar.GCP && <Bar dataKey="GCP" fill="#4285f4" name="GCP Cloud Storage" />}
-                  {visibleServicesBar.AWS && <Bar dataKey="AWS" fill="#fbbf24" name="AWS S3" />}
+                  {visibleCategoriesBar['Armazenamento Padrão'] && <Bar dataKey="Armazenamento Padrão" fill="#dc2626" name="Armazenamento Padrão" />}
+                  {visibleCategoriesBar['Acesso Infrequente'] && <Bar dataKey="Acesso Infrequente" fill="#4285f4" name="Acesso Infrequente" />}
+                  {visibleCategoriesBar['Arquivo'] && <Bar dataKey="Arquivo" fill="#fbbf24" name="Arquivo" />}
                 </BarChart>
               </ResponsiveContainer>
             </div>
             
             {/* Legenda customizada com funcionalidade de clique */}
-             <div className="mt-4 flex justify-center space-x-6">
+             <div className="mt-4 flex flex-wrap justify-center gap-2">
                {[
-                 { name: 'Azure', color: '#dc2626' },
-                 { name: 'GCP', color: '#4285f4' },
-                 { name: 'AWS', color: '#fbbf24' }
-               ].map((platform) => (
+                 { name: 'Armazenamento Padrão', color: '#dc2626' },
+                 { name: 'Acesso Infrequente', color: '#4285f4' },
+                 { name: 'Arquivo', color: '#fbbf24' }
+               ].map((category) => (
                  <button
-                   key={platform.name}
-                   onClick={() => toggleServiceBar(platform.name)}
-                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                     visibleServicesBar[platform.name]
+                   key={category.name}
+                   onClick={() => toggleCategoryBar(category.name)}
+                   className={`flex items-center space-x-1 px-2 py-1 rounded-md text-xs transition-all duration-200 ${
+                     visibleCategoriesBar[category.name]
                        ? 'bg-gray-100 hover:bg-gray-200'
                        : 'bg-gray-300 hover:bg-gray-400 opacity-60'
                    }`}
                  >
                    <div
-                     className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
-                       visibleServicesBar[platform.name] ? 'opacity-100' : 'opacity-40'
+                     className={`w-3 h-3 rounded-full border transition-all duration-200 ${
+                       visibleCategoriesBar[category.name] ? 'opacity-100' : 'opacity-40'
                      }`}
                      style={{
-                       backgroundColor: visibleServicesBar[platform.name] ? platform.color : 'transparent',
-                       borderColor: platform.color
+                       backgroundColor: visibleCategoriesBar[category.name] ? category.color : 'transparent',
+                       borderColor: category.color
                      }}
                    />
                    <span
-                     className={`text-sm font-medium transition-all duration-200 ${
-                       visibleServicesBar[platform.name] ? 'text-gray-800' : 'text-gray-500'
+                     className={`font-medium transition-all duration-200 ${
+                       visibleCategoriesBar[category.name] ? 'text-gray-800' : 'text-gray-500'
                      }`}
                    >
-                     {platform.name}
+                     {category.name}
                    </span>
                  </button>
                ))}
@@ -496,27 +478,24 @@ export default function StorageComparisonPage() {
 
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={radarData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                <RadarChart data={radarCategoryData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                   <PolarGrid />
-                  <PolarAngleAxis dataKey="characteristic" tick={{ fontSize: 12 }} />
+                  <PolarAngleAxis dataKey="provider" tick={{ fontSize: 12 }} />
                   <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 10 }} />
                   <Tooltip 
                     content={({ active, payload, label }) => {
                       if (active && payload && payload.length) {
-                        // Filtrar apenas serviços visíveis e ordenar por pontuação decrescente
-                        const visiblePayload = payload.filter(entry => visibleServicesRadar[entry.name as string]);
-                        const sortedPayload = [...visiblePayload].sort((a, b) => b.value - a.value);
+                        // Filtrar apenas categorias visíveis e ordenar por pontuação decrescente
+                        const visiblePayload = payload.filter(entry => visibleCategoriesRadar[entry.dataKey as string]);
+                        const sortedPayload = [...visiblePayload].sort((a, b) => (b.value as number) - (a.value as number));
                         
                         return (
                           <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg">
                             <p className="font-semibold text-gray-800 mb-2">{label}</p>
                             {sortedPayload.map((entry, index) => {
-                              const fullName = entry.name === 'Azure' ? 'Azure Data Lake Storage' : 
-                                             entry.name === 'GCP' ? 'GCP Cloud Storage' : 
-                                             entry.name === 'AWS' ? 'AWS S3' : entry.name;
                               return (
                                 <p key={index} className="text-sm" style={{ color: entry.color }}>
-                                  <span className="font-medium">{fullName}:</span> {entry.value} pontos
+                                  <span className="font-medium">{entry.dataKey}:</span> {entry.value} pontos
                                 </p>
                               );
                             })}
@@ -526,44 +505,44 @@ export default function StorageComparisonPage() {
                       return null;
                     }}
                   />
-                  {visibleServicesRadar.Azure && <Radar name="Azure" dataKey="Azure" stroke="#dc2626" fill="#dc2626" fillOpacity={0.1} strokeWidth={2} />}
-                  {visibleServicesRadar.GCP && <Radar name="GCP" dataKey="GCP" stroke="#4285f4" fill="#4285f4" fillOpacity={0.1} strokeWidth={2} />}
-                  {visibleServicesRadar.AWS && <Radar name="AWS" dataKey="AWS" stroke="#fbbf24" fill="#fbbf24" fillOpacity={0.1} strokeWidth={2} />}
+                  {visibleCategoriesRadar['Armazenamento Padrão'] && <Radar name="Armazenamento Padrão" dataKey="Armazenamento Padrão" stroke="#dc2626" fill="#dc2626" fillOpacity={0.1} strokeWidth={2} />}
+                  {visibleCategoriesRadar['Acesso Infrequente'] && <Radar name="Acesso Infrequente" dataKey="Acesso Infrequente" stroke="#4285f4" fill="#4285f4" fillOpacity={0.1} strokeWidth={2} />}
+                  {visibleCategoriesRadar['Arquivo'] && <Radar name="Arquivo" dataKey="Arquivo" stroke="#fbbf24" fill="#fbbf24" fillOpacity={0.1} strokeWidth={2} />}
                 </RadarChart>
               </ResponsiveContainer>
             </div>
             
             {/* Legenda customizada com funcionalidade de clique */}
-             <div className="mt-4 flex justify-center space-x-6">
+             <div className="mt-4 flex flex-wrap justify-center gap-2">
                {[
-                 { name: 'Azure', color: '#dc2626' },
-                 { name: 'GCP', color: '#4285f4' },
-                 { name: 'AWS', color: '#fbbf24' }
-               ].map((platform) => (
+                 { name: 'Armazenamento Padrão', color: '#dc2626' },
+                 { name: 'Acesso Infrequente', color: '#4285f4' },
+                 { name: 'Arquivo', color: '#fbbf24' }
+               ].map((category) => (
                  <button
-                   key={platform.name}
-                   onClick={() => toggleServiceRadar(platform.name)}
-                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                     visibleServicesRadar[platform.name]
+                   key={category.name}
+                   onClick={() => toggleCategoryRadar(category.name)}
+                   className={`flex items-center space-x-1 px-2 py-1 rounded-md text-xs transition-all duration-200 ${
+                     visibleCategoriesRadar[category.name]
                        ? 'bg-gray-100 hover:bg-gray-200'
                        : 'bg-gray-300 hover:bg-gray-400 opacity-60'
                    }`}
                  >
                    <div
-                     className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
-                       visibleServicesRadar[platform.name] ? 'opacity-100' : 'opacity-40'
+                     className={`w-3 h-3 rounded-full border transition-all duration-200 ${
+                       visibleCategoriesRadar[category.name] ? 'opacity-100' : 'opacity-40'
                      }`}
                      style={{
-                       backgroundColor: visibleServicesRadar[platform.name] ? platform.color : 'transparent',
-                       borderColor: platform.color
+                       backgroundColor: visibleCategoriesRadar[category.name] ? category.color : 'transparent',
+                       borderColor: category.color
                      }}
                    />
                    <span
-                     className={`text-sm font-medium transition-all duration-200 ${
-                       visibleServicesRadar[platform.name] ? 'text-gray-800' : 'text-gray-500'
+                     className={`font-medium transition-all duration-200 ${
+                       visibleCategoriesRadar[category.name] ? 'text-gray-800' : 'text-gray-500'
                      }`}
                    >
-                     {platform.name}
+                     {category.name}
                    </span>
                  </button>
                ))}
