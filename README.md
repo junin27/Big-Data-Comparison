@@ -50,6 +50,29 @@ npm run build
 npm start
 ```
 
+### Deploy no Vercel
+1. Conecte seu repositório GitHub ao Vercel
+2. O Vercel detectará automaticamente o projeto Next.js
+3. Configure as variáveis de ambiente se necessário
+4. Deploy automático a cada push na branch main
+
+## 🔄 Workflow de Desenvolvimento
+
+### Criando Pull Requests
+```bash
+# Criar nova branch para feature
+git checkout -b feature/nome-da-feature
+
+# Fazer alterações e commit
+git add .
+git commit -m "Descrição das alterações"
+
+# Push da branch
+git push -u origin feature/nome-da-feature
+```
+
+Após o push, você pode criar um Pull Request no GitHub para merge na branch main.
+
 ### Deploy Recomendado
 - **Vercel** (recomendado para Next.js)
 - **Netlify**
