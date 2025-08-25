@@ -46,9 +46,9 @@ export default function ComparisonChart({ data, type = 'bar', title }: Compariso
         <YAxis domain={[0, 100]} />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
-        <Bar dataKey="gcp" fill="#458af5" name="Google Cloud Platform" />
-        <Bar dataKey="azure" fill="#458af5" name="Microsoft Azure" />
-        <Bar dataKey="aws" fill="#458af5" name="Amazon Web Services" />
+        <Bar dataKey="gcp" fill="#3b82f6" name="Google Cloud Platform" />
+        <Bar dataKey="azure" fill="#dc2626" name="Microsoft Azure" />
+        <Bar dataKey="aws" fill="#eab308" name="Amazon Web Services" />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -59,9 +59,9 @@ export default function ComparisonChart({ data, type = 'bar', title }: Compariso
         <PolarGrid />
         <PolarAngleAxis dataKey="name" />
         <PolarRadiusAxis angle={90} domain={[0, 100]} />
-        <Radar name="GCP" dataKey="gcp" stroke="#458af5" fill="#458af5" fillOpacity={0.3} />
-        <Radar name="Azure" dataKey="azure" stroke="#458af5" fill="#458af5" fillOpacity={0.3} />
-        <Radar name="AWS" dataKey="aws" stroke="#458af5" fill="#458af5" fillOpacity={0.3} />
+        <Radar name="GCP" dataKey="gcp" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} />
+        <Radar name="Azure" dataKey="azure" stroke="#dc2626" fill="#dc2626" fillOpacity={0.3} />
+        <Radar name="AWS" dataKey="aws" stroke="#eab308" fill="#eab308" fillOpacity={0.3} />
         <Legend />
         <Tooltip content={<CustomTooltip />} />
       </RadarChart>

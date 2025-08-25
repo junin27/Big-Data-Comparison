@@ -1,9 +1,9 @@
 import { Platform, Section, ComparisonTable, ChartData } from '@/types';
 
 export const platforms: Platform[] = [
-  { id: 'gcp', name: 'Google Cloud Platform', color: '#458af5' },
-  { id: 'azure', name: 'Microsoft Azure', color: '#458af5' },
-  { id: 'aws', name: 'Amazon Web Services', color: '#458af5' },
+  { id: 'gcp', name: 'Google Cloud Platform', color: '#3b82f6' },
+  { id: 'azure', name: 'Microsoft Azure', color: '#dc2626' },
+  { id: 'aws', name: 'Amazon Web Services', color: '#eab308' },
 ];
 
 export const sections: Section[] = [
