@@ -10,48 +10,37 @@ import { Database } from 'lucide-react';
 
 // Dados para gráfico de barras - pontuação das plataformas por cenário (0-100)
 const platformDistribution = [
-  { scenario: 'Treinamento', Azure: 90, GCP: 70, AWS: 80 },
+  { scenario: 'Treinamento', Azure: 90, GCP: 82, AWS: 85 },
   { scenario: 'Inference', Azure: 85, GCP: 75, AWS: 95 },
-  { scenario: 'AutoML', Azure: 80, GCP: 95, AWS: 75 }
+  { scenario: 'Principal Vantagem', Azure: 95, GCP: 90, AWS: 85 },
+  { scenario: 'Foco de Custo', Azure: 85, GCP: 70, AWS: 90 }
 ];
 
 // Dados para gráfico de radar - características das plataformas
 const radarData = [
   {
-    characteristic: 'Facilidade de Uso',
-    Azure: 85,
-    GCP: 95,
-    AWS: 75
-  },
-  {
-    characteristic: 'Custo-Benefício',
+    characteristic: 'Treinamento',
     Azure: 90,
-    GCP: 70,
-    AWS: 80
+    GCP: 82,
+    AWS: 85
   },
   {
-    characteristic: 'Integração',
+    characteristic: 'Inference',
+    Azure: 85,
+    GCP: 75,
+    AWS: 95
+  },
+  {
+    characteristic: 'Principal Vantagem',
     Azure: 95,
     GCP: 90,
     AWS: 85
   },
   {
-    characteristic: 'Variedade de Instâncias',
-    Azure: 80,
-    GCP: 75,
-    AWS: 95
-  },
-  {
-    characteristic: 'AutoML',
-    Azure: 80,
-    GCP: 95,
-    AWS: 85
-  },
-  {
-    characteristic: 'Ecossistema',
-    Azure: 90,
-    GCP: 85,
-    AWS: 95
+    characteristic: 'Foco de Custo',
+    Azure: 85,
+    GCP: 70,
+    AWS: 90
   }
 ];
 
@@ -83,7 +72,7 @@ export default function MLAIComparisonPage() {
     }));
   };
 
-  const mlAiCategories = ['Treinamento', 'Inference'];
+  const mlAiCategories = ['Treinamento', 'Inference', 'Principal Vantagem', 'Foco de Custo'];
   
   // const filteredData = selectedCategory === 'all' 
   //   ? mlAiCategories 
@@ -130,6 +119,27 @@ export default function MLAIComparisonPage() {
               </button>
             ))}
           </div>
+          
+          {/* Explicação sobre Cálculo das Porcentagens */}
+          <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+            <div className="flex items-start space-x-3">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-gray-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-sm font-medium text-gray-900 mb-1">
+                  Como são calculadas as porcentagens de recomendação?
+                </h4>
+                <p className="text-sm text-gray-600">
+                  As porcentagens representam a <strong>distribuição relativa de recomendação</strong> entre as três plataformas para cada categoria. 
+                  Para cada característica, as três porcentagens sempre somam <strong>100%</strong>, indicando qual plataforma é mais recomendada 
+                  em relação às outras naquela categoria específica.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </Card>
 
@@ -157,16 +167,14 @@ export default function MLAIComparisonPage() {
                 </tr>
               </thead>
               <tbody>
-                {(selectedCategory === 'all' || selectedCategory === 'Treinamento') && (
-                  <>
-                    <tr style={{backgroundColor: '#f9fafb'}}>
-                      <td 
-                        className="px-6 py-4 font-semibold text-white bg-gray-600" 
-                        style={{border: '4px solid black'}}
-                        rowSpan={3}
-                      >
-                        Treinamento
-                      </td>
+                <tr style={{backgroundColor: '#f9fafb'}}>
+                  <td 
+                    className="px-6 py-4 font-semibold text-white bg-gray-600" 
+                    style={{border: '4px solid black'}}
+                    rowSpan={3}
+                  >
+                    Treinamento
+                  </td>
                   <td className="px-6 py-4" style={{border: '4px solid black'}}>
                     <div className="flex items-center">
                       <svg 
@@ -176,21 +184,21 @@ export default function MLAIComparisonPage() {
                         fill="none" 
                         className="mr-3 flex-shrink-0"
                       >
-                        <circle cx="12" cy="12" r="10" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#dc2626" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#dc2626" strokeWidth="2"/>
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#4285f4" strokeWidth="2" fill="none"/>
                       </svg>
-                      <span className="font-medium text-base" style={{ color: '#dc2626' }}>
-                        Azure Machine Learning
+                      <span className="font-medium text-base" style={{ color: '#4285f4' }}>
+                        GCP Vertex AI
                       </span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $0.90 por hora para NC6 GPU - melhor custo-benefício para treinamento
+                    Custo estimado: $4.82 por hora para N1 Standard-8 + Tesla T4 GPU
                   </td>
                   <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-green-100 text-green-800">
-                      50%
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800">
+                      32%
                     </span>
                   </td>
                 </tr>
@@ -204,104 +212,9 @@ export default function MLAIComparisonPage() {
                         fill="none" 
                         className="mr-3 flex-shrink-0"
                       >
-                        <circle cx="12" cy="12" r="10" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#fbbf24" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#fbbf24" strokeWidth="2"/>
-                      </svg>
-                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
-                        AWS SageMaker
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $3.06 por hora para p3.2xlarge GPU - ampla variedade de instâncias
-                  </td>
-                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
-                      30%
-                    </span>
-                  </td>
-                </tr>
-                <tr style={{backgroundColor: '#f9fafb'}}>
-                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
-                    <div className="flex items-center">
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        className="mr-3 flex-shrink-0"
-                      >
-                        <circle cx="12" cy="12" r="10" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#4285f4" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#4285f4" strokeWidth="2"/>
-                      </svg>
-                      <span className="font-medium text-base" style={{ color: '#4285f4' }}>
-                        GCP Vertex AI
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $4.82 por hora para N1 Standard-8 + Tesla T4 GPU - usabilidade e AutoML
-                  </td>
-                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
-                      20%
-                    </span>
-                  </td>
-                </tr>
-                  </>
-                )}
-                {(selectedCategory === 'all' || selectedCategory === 'Inference') && (
-                  <>
-                    <tr style={{backgroundColor: '#ffffff'}}>
-                      <td 
-                        className="px-6 py-4 font-semibold text-white bg-gray-600" 
-                        style={{border: '4px solid black'}}
-                        rowSpan={3}
-                      >
-                        Inference
-                      </td>
-                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
-                    <div className="flex items-center">
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        className="mr-3 flex-shrink-0"
-                      >
-                        <circle cx="12" cy="12" r="10" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#fbbf24" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#fbbf24" strokeWidth="2"/>
-                      </svg>
-                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
-                        AWS SageMaker
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $0.1345 por hora para ml.m5.large - menor custo para inference
-                  </td>
-                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-green-100 text-green-800">
-                      45%
-                    </span>
-                  </td>
-                </tr>
-                <tr style={{backgroundColor: '#f9fafb'}}>
-                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
-                    <div className="flex items-center">
-                      <svg 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        className="mr-3 flex-shrink-0"
-                      >
-                        <circle cx="12" cy="12" r="10" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#dc2626" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#dc2626" strokeWidth="2"/>
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#dc2626" strokeWidth="2" fill="none"/>
                       </svg>
                       <span className="font-medium text-base" style={{ color: '#dc2626' }}>
                         Azure Machine Learning
@@ -309,15 +222,15 @@ export default function MLAIComparisonPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $0.145 por hora para Standard_DS3_v2 - integração Microsoft
+                    Custo estimado: $0.90 por hora para NC6 GPU
                   </td>
                   <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
-                      30%
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
+                      35%
                     </span>
                   </td>
                 </tr>
-                <tr style={{backgroundColor: '#ffffff'}}>
+                <tr style={{backgroundColor: '#f9fafb'}}>
                   <td className="px-6 py-4" style={{border: '4px solid black'}}>
                     <div className="flex items-center">
                       <svg 
@@ -327,9 +240,45 @@ export default function MLAIComparisonPage() {
                         fill="none" 
                         className="mr-3 flex-shrink-0"
                       >
-                        <circle cx="12" cy="12" r="10" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
-                        <path d="M9 19c-5 0-8-3-8-8s3-8 8-8 8 3 8 8-3 8-8 8z" stroke="#4285f4" strokeWidth="2"/>
-                        <path d="M15 12h6" stroke="#4285f4" strokeWidth="2"/>
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
+                        AWS SageMaker
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Custo estimado: $3.06 por hora para p3.2xlarge GPU
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
+                      33%
+                    </span>
+                  </td>
+                </tr>
+                
+                <tr style={{backgroundColor: '#ffffff'}}>
+                  <td 
+                    className="px-6 py-4 font-semibold text-white bg-gray-600" 
+                    style={{border: '4px solid black'}}
+                    rowSpan={3}
+                  >
+                    Inference
+                  </td>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#4285f4" strokeWidth="2" fill="none"/>
                       </svg>
                       <span className="font-medium text-base" style={{ color: '#4285f4' }}>
                         GCP Vertex AI
@@ -337,18 +286,296 @@ export default function MLAIComparisonPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
-                    Custo estimado: $0.1851 por hora para F2-standard-4 - forte integração BigQuery
+                    Custo estimado: $0.1851 por hora para F2-standard-4
                   </td>
                   <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800">
                       25%
                     </span>
                   </td>
                 </tr>
-                  </>
-                )}
+                <tr style={{backgroundColor: '#f9fafb'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#dc2626' }}>
+                        Azure Machine Learning
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Custo estimado: $0.145 por hora para Standard_DS3_v2
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
+                      30%
+                    </span>
+                  </td>
+                </tr>
+                <tr style={{backgroundColor: '#ffffff'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
+                        AWS SageMaker
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Custo estimado: $0.1345 por hora para ml.m5.large
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
+                      45%
+                    </span>
+                  </td>
+                </tr>
+                
+                <tr style={{backgroundColor: '#f9fafb'}}>
+                  <td 
+                    className="px-6 py-4 font-semibold text-white bg-gray-600" 
+                    style={{border: '4px solid black'}}
+                    rowSpan={3}
+                  >
+                    Principal Vantagem
+                  </td>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#4285f4' }}>
+                        GCP Vertex AI
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Usabilidade, AutoML e forte integração com BigQuery
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800">
+                      35%
+                    </span>
+                  </td>
+                </tr>
+                <tr style={{backgroundColor: '#ffffff'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#dc2626' }}>
+                        Azure Machine Learning
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Ferramentas visuais e integração com o ecossistema Microsoft
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
+                      40%
+                    </span>
+                  </td>
+                </tr>
+                <tr style={{backgroundColor: '#f9fafb'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
+                        AWS SageMaker
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    Ampla variedade de instâncias e ecossistema maduro
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
+                      25%
+                    </span>
+                  </td>
+                </tr>
+                
+                <tr style={{backgroundColor: '#ffffff'}}>
+                  <td 
+                    className="px-6 py-4 font-semibold text-white bg-gray-600" 
+                    style={{border: '4px solid black'}}
+                    rowSpan={3}
+                  >
+                    Foco de Custo
+                  </td>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#4285f4" strokeWidth="2" fill="#4285f4" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#4285f4" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#4285f4' }}>
+                        GCP Vertex AI
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    A inference é o custo dominante, e não o training
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800">
+                      25%
+                    </span>
+                  </td>
+                </tr>
+                <tr style={{backgroundColor: '#f9fafb'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#dc2626" strokeWidth="2" fill="#dc2626" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#dc2626" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#dc2626' }}>
+                        Azure Machine Learning
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    A inference é o custo dominante, e não o training
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-800">
+                      30%
+                    </span>
+                  </td>
+                </tr>
+                <tr style={{backgroundColor: '#ffffff'}}>
+                  <td className="px-6 py-4" style={{border: '4px solid black'}}>
+                    <div className="flex items-center">
+                      <svg 
+                        width="18" 
+                        height="18" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        className="mr-3 flex-shrink-0"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" stroke="#fbbf24" strokeWidth="2" fill="#fbbf24" fillOpacity="0.1"/>
+                        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#fbbf24" strokeWidth="2" fill="none"/>
+                      </svg>
+                      <span className="font-medium text-base" style={{ color: '#fbbf24' }}>
+                        AWS SageMaker
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700 leading-relaxed" style={{border: '4px solid black'}}>
+                    A inference é o custo dominante, e não o training
+                  </td>
+                  <td className="px-6 py-4 text-center" style={{border: '4px solid black'}}>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-800">
+                      45%
+                    </span>
+                  </td>
+                </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </Card>
+
+      {/* Explicação sobre Porcentagem de Recomendação */}
+      <Card title="Como Funciona a Porcentagem de Recomendação" icon={
+        <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9,12l2,2 4,-4"></path>
+        </svg>
+      }>
+        <div className="p-6">
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-blue-800">
+                  Metodologia de Avaliação
+                </h3>
+                <div className="mt-2 text-sm text-blue-700">
+                  <p className="mb-3">
+                    As porcentagens de recomendação são baseadas em uma análise abrangente que considera:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li><strong>Custo-benefício:</strong> Relação entre preço e performance oferecida</li>
+                    <li><strong>Facilidade de uso:</strong> Curva de aprendizado e interface intuitiva</li>
+                    <li><strong>Integração:</strong> Compatibilidade com outros serviços e ferramentas</li>
+                    <li><strong>Escalabilidade:</strong> Capacidade de crescer conforme a demanda</li>
+                    <li><strong>Suporte e documentação:</strong> Qualidade do suporte técnico e recursos disponíveis</li>
+                  </ul>
+                  <p className="mt-3">
+                    <strong>Interpretação:</strong> Quanto maior a porcentagem, mais recomendada é a plataforma para aquela categoria específica.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Card>
