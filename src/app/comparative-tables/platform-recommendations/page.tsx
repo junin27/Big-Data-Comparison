@@ -395,7 +395,7 @@ export default function PlatformRecommendationsPage() {
                         return (
                           <div className="bg-white p-3 border border-gray-300 rounded shadow-lg">
                             <p className="font-semibold mb-2">{`Cenário: ${label}`}</p>
-                            {sortedData.map((entry, index) => (
+                            {sortedData.map((entry) => (
                               <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
                                 {`${entry.name}: ${entry.value} pontos`}
                               </p>
